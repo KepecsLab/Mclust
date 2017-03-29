@@ -26,9 +26,17 @@ function WaveformCutter(varargin)
 %
 
 global GP
-global MClust_Clusters MClust_max_records_to_load MClust_TTData
+global MClust_max_records_to_load
+global MClust_Clusters  MClust_TTData
 global MClust_Colors
 global MClust_FeatureData
+
+
+%% HyunJae Pi Mar2017; (hack) global MClust_max_records_to_load keep disappearing.
+if isempty(MClust_max_records_to_load)
+	MClust_max_records_to_load = 1000000;
+end
+%%
 
 % Constants:
 if nargin==0

@@ -71,7 +71,7 @@ switch ssw
 		featuresToUse = GetFeaturesFromListBox(MClustFigureHandle);
 		
 		%find basename
-		[fn dn] = uigetfile('*T*.dat;*.ntt;*.nse;*.nst;*.tt', ...
+		[fn dn] = uigetfile('*.dat;*.ntt;*.nse;*.nst;*.tt', ...
 			'Select the spike data file from the desired tetrode');
 		if fn == 0    % User hit cancel
 			return

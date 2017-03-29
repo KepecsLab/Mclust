@@ -269,7 +269,7 @@ case 'ChooseColor'
     iClust = get(cboHandle, 'UserData')+1;
     MClust_Colors(iClust,:) = uisetcolor(MClust_Colors(iClust,:), 'Set Cluster Color');
     set(cboHandle, 'BackgroundColor', MClust_Colors(iClust,:));
-    lineHandle = findobj('Tag', 'ClusterLine', 'UserData', iClust);
+    lineHandle = findobj('Tag', 'ClusterLine', 'UserData', iClust-1);
     if ~isempty(lineHandle)
         set(lineHandle, 'Color', MClust_Colors(iClust, :));
     elseif redrawAxesFlag

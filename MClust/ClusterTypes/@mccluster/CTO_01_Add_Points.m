@@ -30,7 +30,8 @@ axes(drawingAxis);
 
 if ~isempty(chx) && ~isempty(chy)
     f = MCC.myOrigPoints;
-    f_new = find(InPolygon(MClust_CurrentFeatureData(:,1), MClust_CurrentFeatureData(:,2), chx, chy));	
+    f_new = find(inpolygon(MClust_CurrentFeatureData(:,1), MClust_CurrentFeatureData(:,2), chx, chy));	
+    %f_new = find(InPolygon(MClust_CurrentFeatureData(:,1), MClust_CurrentFeatureData(:,2), chx, chy));	
     MCC.recalc = 1;
     MCC.myOrigPoints = unique([f; f_new]);
 end

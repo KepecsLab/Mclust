@@ -11,6 +11,9 @@ function ok = CalculateFeatures(basename, featureList)
 % Version M3.5.
 % Released with MClust 3.5.
 
+% Modified to store feature data in global variable to avoid reloading from
+% disc when plotting. (B. Hangya, CSHL; balazs.cshl@gmail.com)
+
 % PARAMETERS
 global MClust_FDdn MClust_FDext MClust_ChannelValidity MCLUST_DEBUG
 global MClust_max_records_to_load MClust_TTdn MClust_TTfn MClust_TText
@@ -18,6 +21,7 @@ global MClust_FeatureTimestamps
 
 global MClust_FeatureNames % names of features
 global MClust_FeatureSources % <filenames, number pairs> for finding features in fd files
+global MClust_FeatureData
 
 if ~isempty(MClust_max_records_to_load)
 	record_block_size = MClust_max_records_to_load;
@@ -56,9 +60,11 @@ Write_fd_file(MClust_FDdn, [MClust_TTdn filesep MClust_TTfn MClust_TText], ...
 
 % Check FD channel validity match
 ok = true(size(featureFiles)); temp = cell(size(featureFiles));
-for iF = 1:length(featureFiles)
-   temp{iF} = load([featureFiles{iF} MClust_FDext],'-mat');
-   ok(iF) = all(MClust_ChannelValidity == temp{iF}.ChannelValidity);
+lfF = length(featureFiles);
+Temp = cell(lfF,1);
+for iF = 1:lfF
+   Temp{iF} = load([featureFiles{iF} MClust_FDext],'-mat');
+   ok(iF) = all(MClust_ChannelValidity == Temp{iF}.ChannelValidity);
 end
 if any(~ok)
 	errordlg({'Channel Validity in feature files'; ...
@@ -77,7 +83,7 @@ end
 nFeat = zeros(size(featureList));
 nSamps = zeros(size(featureList));
 for iF = 1:length(featureList)
-	 temp = load([featureFiles{iF} MClust_FDext],'-mat');
+	 temp = Temp{iF};
 	 nFeat(iF) = length(temp.FeatureNames);
 	 nSamps(iF) = length(temp.FeatureIndex);
 end
@@ -94,6 +100,7 @@ MClust_FeatureTimestamps = temp.FeatureTimestamps;
 % allocate
 MClust_FeatureNames = cell(nFeat,1);
 MClust_FeatureSources = cell(nFeat,2);
+MClust_FeatureData = cell(nFeat,1);
 iC = 1; 
 for iF = 1:length(featureList)
     fn = [featureFiles{iF} MClust_FDext];
@@ -102,6 +109,7 @@ for iF = 1:length(featureList)
         MClust_FeatureNames{iC} = temp.FeatureNames{iN};
         MClust_FeatureSources{iC,1} = fn;
         MClust_FeatureSources{iC,2} = iN;
+        MClust_FeatureData{iC,1} = Temp{iF}.FeatureData(:,iN);     % get feature data
         iC = iC+1;
 	end
 end

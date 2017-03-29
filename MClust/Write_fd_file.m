@@ -42,7 +42,7 @@ if nargin < 4
 	valid_channels = [ 1 1 1 1];
 end
 if nargin < 5
-	record_block_size = 50000; % Most computers should be able to handle 80000 spikes.
+	record_block_size = 1000000; %(Mar14,2017)it was 50000 & for window XP ; Most computers should be able to handle 80000 spikes.
 end
 if nargin < 6
 	use_template_matching = 0;

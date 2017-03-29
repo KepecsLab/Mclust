@@ -17,6 +17,8 @@ function [x,y] = DrawConvexHull
 if isempty(x) || isempty(y)
     return
 end
-k = convexhull(x,y);
+dt = delaunayTriangulation(x,y)
+%k = convexhull(x,y);
+k = convexHull(dt);
 x = x(k);
 y = y(k);

@@ -95,7 +95,7 @@ switch flag
 
 		MClust_FilesWrittenYN = 'no';
 
-		MClust_ClusterSeparationFeatures = {'energy','wavePC1'};
+		MClust_ClusterSeparationFeatures = {'Energy','WavePC1'}; %Jan30, 2017; HyunJae Pi; capitalized 'e'nergy & 'w'avePC
 
 		MClust_ClusterCutWindow_Pos= [10 60 450 650];
 		MClust_CHDrawingAxisWindow_Pos= [500 200 650 650];
@@ -109,10 +109,8 @@ switch flag
 		
 		MClust_Undo = {}; MClust_Redo = {};
 
-		MClust_AverageWaveform_ylim = 16*[-2100 2100];  % For Cheetah 5
+		%MClust_AverageWaveform_ylim = 16*[-2100 2100];  % For Cheetah 5
 		%MClust_AverageWaveform_ylim = [-2100 2100]; % For earlier versions of Cheetah
-        
-        MClust_max_records_to_load = 10000; % ADR 26 Feb 2008
 
         MClust_TTData = [];      % data from tt file
         MClust_CurrentFeatures = [-1,-1,-1];% used to keep track of which features are currently in memory
@@ -145,7 +143,8 @@ switch flag
 		FeaturesUseListbox = findobj(MClustFigureHandle, 'Tag', 'FeaturesUseListbox');
 		FeaturesToUse = get(FeaturesUseListbox, 'String')';
 		MClust_FeaturesToUse = FeaturesToUse;
-        MClust_max_records_to_load = 10000; % ADR Feb 2008
+        MClust_max_records_to_load = 1000000; %HyunJae Pi Mar 2014; 10000 = ADR 26 Feb 2008
+
         
         MClust_TTData = [];      % data from tt file
         MClust_CurrentFeatures = [-1,-1,-1];% used to keep track of which features are currently in memory

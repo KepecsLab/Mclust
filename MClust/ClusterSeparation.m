@@ -23,6 +23,7 @@ function [L_Extra,L_Ratio,IsolationDist,Dists,df,L_Intra,C] = ClusterSeparation(
 % warning off MATLAB:divideByZero
 
 global MClust_ClusterSeparationFeatures
+global MClust_max_records_to_load
 
 if ~license('test', 'Statistics_Toolbox') || isempty(which('mahal'))
 	 % needs mahal from Stats toolbox

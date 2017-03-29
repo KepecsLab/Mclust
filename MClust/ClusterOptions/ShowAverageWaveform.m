@@ -69,7 +69,8 @@ if run_avg_waveform
         
     end
     axis off
-    axis([0 4*(nWVSamples+2) MClust_AverageWaveform_ylim])
+    %axis([0 4*(nWVSamples+2) MClust_AverageWaveform_ylim])
+   
     hold off
     title(['Average Waveform: Cluster ' num2str(iClust)]);
 end
