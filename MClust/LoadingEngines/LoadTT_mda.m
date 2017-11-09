@@ -46,7 +46,7 @@ switch nargin
 end
 
 % Load data
-TTdata = load(fn);
+TTdata = load(fn,'-mat');
 t = double(TTdata.TTdata.Timestamps - TTdata.TTdata.header(1).Tstart*10^-6);
 wv = double(TTdata.TTdata.Waveforms);
 
