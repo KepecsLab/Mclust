@@ -62,6 +62,11 @@ I = ones(nSpikes,1);
 
 for iC = 1:lf
     w = squeeze(TTData(:,f(iC),:));    % get data in nSpikes x nSamp array
+    if sum(w)==0
+        errmsg = sprintf('Error in tetrode data (all zero). Check channel validity for channel %i!',f(iC));
+        
+        errordlg(errmsg,'Error');
+    end
     if norm
         % normalize waveforms to unit L2 norm (so that only their SHAPE or
         % relative angles but not their length (energy) matters)
