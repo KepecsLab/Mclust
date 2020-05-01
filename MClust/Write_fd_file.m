@@ -181,6 +181,32 @@ for iB = 1:nB
 		% [block_t,wv] = LoadTT0_nt(TT_file_name,[starts(block) ends(block)],4);
 		% REPLACED ADR 14 May 2002
 		[block_t,wv] = MClust_LoadNeuralData(TT_file_name,[starts(block) ends(block)],4);
+        %-------------------
+        % check channel validity
+        %------------
+        %TO add 2020
+        if block ==1 && iB==1 && ~isempty(wv)
+            data_channels = squeeze(sum(sum(wv,1),3))~=0;
+            more_data = find(data_channels & ~ChannelValidity);
+            if ~isempty(more_data)
+                n=num2str(more_data(1));
+                for i =1:length(more_data)-1
+                    n = [n,', ',num2str(more_data(i+1))];
+                end                
+                ss=sprintf('Channel(s) %s have data but are marked as not valid.',n);
+                ff=warndlg(ss,'Check Channel Validity');
+            end
+            less_data = find(~data_channels & ChannelValidity);
+            if ~isempty(less_data)
+                n=num2str(less_data(1));
+                for i =1:length(less_data)-1
+                    n = [n,', ',num2str(less_data(i+1))];
+                end                
+                ss=sprintf('Channel(s) %s have no data in tetrode file but are marked as valid.',n);
+                ff=errordlg(ss,'Check Channel Validity');
+                return
+            end    
+        end
 		% --------------------------------------------------------
 		% Do template matching
 		% --------------------------------------------------------

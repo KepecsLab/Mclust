@@ -450,10 +450,10 @@ function ClearWorkspace()
 	set(findobj(MClustFigureHandle, 'Tag', 'FeaturesUseListbox'), 'Enable','on');
     
     % update Channel Validity Checkboxes with used channels in featurefile
-%     set(findobj(MClustFigureHandle, 'Tag', 'TTValidity1'), 'Value', 1, 'Enable', 'on');
-%     set(findobj(MClustFigureHandle, 'Tag', 'TTValidity2'), 'Value', 1, 'Enable', 'on');
-%     set(findobj(MClustFigureHandle, 'Tag', 'TTValidity3'), 'Value', 1, 'Enable', 'on');
-%     set(findobj(MClustFigureHandle, 'Tag', 'TTValidity4'), 'Value', 1, 'Enable', 'on');
+    set(findobj(MClustFigureHandle, 'Tag', 'TTValidity1'), 'Value', 1, 'Enable', 'on');
+    set(findobj(MClustFigureHandle, 'Tag', 'TTValidity2'), 'Value', 1, 'Enable', 'on');
+    set(findobj(MClustFigureHandle, 'Tag', 'TTValidity3'), 'Value', 1, 'Enable', 'on');
+    set(findobj(MClustFigureHandle, 'Tag', 'TTValidity4'), 'Value', 1, 'Enable', 'on');
      
     set(findobj(MClustFigureHandle, 'Tag', 'TTFileName'), 'String', [],'BackGroundColor',[0.7 0.7 0.7]);
     

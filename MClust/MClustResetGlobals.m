@@ -151,7 +151,7 @@ switch flag
         MClust_FeatureNames = {}; % names of features
         MClust_FeatureSources = {}; % <filenames, number pairs> for finding features in fd files
         MClust_FeatureTimestamps = []; % timestamps
-        %MClust_ChannelValidity = [1 1 1 1];% 4 x 1 array of channel on (1) or off (0) flags
+        MClust_ChannelValidity = [1 1 1 1];% 4 x 1 array of channel on (1) or off (0) flags
       
 end
 
