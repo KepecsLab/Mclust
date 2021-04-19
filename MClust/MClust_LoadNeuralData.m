@@ -24,6 +24,7 @@ function [T,WV] = MClust_LoadNeuralData(fn, records_to_get, key)
 
 global MClust_Directory
 global MClust_NeuralLoadingFunction
+global MClust_ChannelValidity
 
 % added ncst 20 May 02
 if isempty(MClust_Directory)
@@ -69,4 +70,3 @@ else
         error('Incorrect parameters passed to MClust_LoadNeuralData');
     end
 end
-    
