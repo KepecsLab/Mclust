@@ -58,6 +58,10 @@ end
 if FDpath(end) ~= filesep
 	FDpath(end+1) = filesep;
 end
+if ~exist(FDpath,'dir')
+    mkdir(FDpath)
+end
+
 [fpath, fname, ext] = fileparts(TT_file_name);
 FDpath = [FDpath fname];
 
