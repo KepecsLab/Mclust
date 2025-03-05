@@ -437,6 +437,8 @@ xrange = getappdata(gcf,'xrange');
 yrange = getappdata(gcf,'yrange');
 
 % Set axis
+mouseJitterThreshold = 0.1; % Define a small threshold for detecting unintentional mouse movement
+
 seltyp = get(hObj,'SelectionType');
 switch seltyp
 case 'normal'   % zoom in
@@ -445,7 +447,14 @@ case 'normal'   % zoom in
     point2 = get(A,'CurrentPoint');    % button up detected
     point1 = point1(1,1:2);              % extract x and y
     point2 = point2(1,1:2);
-    if isequal(point1,point2)
+
+    disp('point1')
+    disp(point1)
+    disp('point2')
+    disp(point2)
+
+    if abs(point1(1) - point2(1)) < mouseJitterThreshold || abs(point1(2) - point2(2)) < mouseJitterThreshold % single click selection with jitter buffer
+        point1 = point2;
         xx2 = abs(xx(2)-xx(1)) / 4;
         yy2 = abs(yy(2)-yy(1)) / 4;
         xx3(1) = point1(1) - xx2;
@@ -456,7 +465,7 @@ case 'normal'   % zoom in
         ynew(1) = max(yrange(1),yy3(1));
         xnew(2) = min(xrange(2),xx3(2));
         ynew(2) = min(yrange(2),yy3(2));
-    else
+    else % window selection
         xnew = [min([point1(1) point2(1)]) max([point1(1) point2(1)])];
         ynew = [min([point1(2) point2(2)]) max([point1(2) point2(2)])];
     end
@@ -465,7 +474,7 @@ case 'open'   % set default
     xnew = xrange;
     ynew = yrange;
     
-case 'extend'   % zoom out
+    case {'extend', 'alt'}   % zoom out, set to both middle click (original) and right click (added later)
     point = get(A,'CurrentPoint');   % button down detected
     point = point(1,1:2);
     xx2 = abs(xx(2)-xx(1));
@@ -484,10 +493,11 @@ otherwise
 end
 
 if xnew(1) >= xnew(2)    % problems can occur when too zoomed in to resolve
-    xnew(2) = xnew(1) + eps;
+    xnew(2) = xnew(1) + max(eps, eps*xnew(1));
 end
+
 if ynew(1) >= ynew(2)
-    ynew(2) = ynew(1) + eps;
+    ynew(2) = ynew(1) + max(eps, eps*ynew(1));
 end
 set(A,'XLim',xnew);
 set(A,'YLim',ynew);
